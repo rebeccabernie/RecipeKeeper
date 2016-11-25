@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+
+<!-- Originally adapted from: http://v4-alpha.getbootstrap.com/getting-started/introduction/ -->
+
+<html lang="en">
+  <head>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/css/bootstrap.min.css" integrity="2hfp1SzUoho7/TsGGGDaFdsuuDL0LX2hnUp6VkX3CUQ2K4K+xjboZdsXyp4oUHZj" crossorigin="anonymous">
+  </head>
+  <body>
+	
+	<!-- https://v4-alpha.getbootstrap.com/components/navbar/ -->
+	<nav class="navbar navbar-dark bg-inverse">
+		<div class="container">
+    	<a class="navbar-brand" href="#">Permutations</a>
+  	</div>
+	</nav>
+
+	<div class="container">
+		<br />
+		<!-- Adapted from: http://v4-alpha.getbootstrap.com/components/forms/#textual-inputs -->
+		<form>
+            
+		  <div class="form-group">
+			<label for="name">Recipe Name</label>
+			<input type="text" class="form-control" name="rname" id="rname" placeholder="Name">
+          </div>
+          <div class="form-group">
+			<label for="name">Ingredients</label>
+			<input type="text" rows = "5" class="form-control" name="ing" id="ing" placeholder="Ingredients">
+            </div>
+          <div class="form-group">
+			<label for="name">Method</label>
+			<input type="text" rows = "10" class="form-control" name="method" id="method" placeholder="Ingredients">
+          </div>
+            
+		  <button type="submit" id="submitB" class="btn btn-primary">Add to Breakfast</button>
+		  <button type="submit" id="submitL" class="btn btn-primary">Add to Lunch</button>
+		  <button type="submit" id="submitD" class="btn btn-primary">Add to Dinner</button>
+		  <button type="submit" id="submitDe" class="btn btn-primary">Add to Dessert</button>
+		<!--
+        </form>
+		<br />
+        
+		<form>
+		  <div class="form-group">
+			<label for="serveroutput">Server result</label>
+			<textarea class="form-control" id="serveroutput" rows="10" placeholder="Please submit an input above."  readonly></textarea>
+		</form>
+        -->
+	</div>
+
+    <!-- jQuery first, then Tether, then Bootstrap JS. -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js" integrity="sha384-THPy051/pYDQGanwU6poAc/hOdQxjnOEXzbT+OuUAFqNqFjL+4IGLBgCJC3ZOShY" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js" integrity="sha384-Plbmg8JY28KFelvJVai01l8WyZzrYWG825m+cZ0eDDS1f7d/js6ikvy1+X+guPIB" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/js/bootstrap.min.js" integrity="VjEeINv9OSwtWFLAtmc4JCtEJXXBub00gtSnszmspDLCtC0I4z4nqz7rEFbIZLLU" crossorigin="anonymous"></script>
+    
+	<script>
+        // Breakfast submit
+		$("#submitB").click(function(e) {
+			e.preventDefault();
+			
+			data = {userinput: $("#userinput").val()}
+			$.post("/perms", data, function(resbody){
+				$("#serveroutput").text(resbody);
+			});
+		});
+        
+        /*
+        // Lunch submit
+        $("#submitL").click(function(e) {
+			e.preventDefault();
+			
+			data = {userinput: $("#userinput").val()}
+			$.post("/perms", data, function(resbody){
+				$("#serveroutput").text(resbody);
+			});
+		});
+        
+        // Dinner submit
+        $("#submitD").click(function(e) {
+			e.preventDefault();
+			
+			data = {userinput: $("#userinput").val()}
+			$.post("/perms", data, function(resbody){
+				$("#serveroutput").text(resbody);
+			});
+		});
+        
+        // Dessert submit
+        $("#submitDe").click(function(e) {
+			e.preventDefault();
+			
+			data = {userinput: $("#userinput").val()}
+			$.post("/perms", data, function(resbody){
+				$("#serveroutput").text(resbody);
+			});
+		});
+        */
+	</script>
+  </body>
+</html>
