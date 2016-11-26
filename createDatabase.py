@@ -17,6 +17,9 @@ def setup_db():
   if cur.fetchall() == 0: # If all columns are empty, insert following information
     cur.execute("INSERT INTO recipetable VALUES('Pancakes', 'Eggs, Milk, SF Flour', 'Add all to bowl and mix.')")
     db.commit()
+    
+    #test = cur.execute("SELECT * FROM recipetable")
+    print(str(cur.fetchall()))
 
 if __name__ == "__main__":
   setup_db()

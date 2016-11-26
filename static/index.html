@@ -17,14 +17,14 @@
 	<!-- https://v4-alpha.getbootstrap.com/components/navbar/ -->
 	<nav class="navbar navbar-dark bg-inverse">
 		<div class="container">
-    	<a class="navbar-brand" href="#">Permutations</a>
+    	<a class="navbar-brand" href="#">Recipe Keeper</a>
   	</div>
 	</nav>
 
 	<div class="container">
 		<br />
 		<!-- Adapted from: http://v4-alpha.getbootstrap.com/components/forms/#textual-inputs -->
-		<form>
+		<form id="recipeform">
             
 		  <div class="form-group">
 			<label for="name">Recipe Name</label>
@@ -32,27 +32,34 @@
           </div>
           <div class="form-group">
 			<label for="name">Ingredients</label>
-			<input type="text" rows = "5" class="form-control" name="ing" id="ing" placeholder="Ingredients">
+              <!--  Input tag doesn't support multiple rows, 
+                    <textarea> solution found on http://stackoverflow.com/questions/13089182/more-than-1-row-in-input-type-textarea -->
+			<textarea form ="recipeform" class="form-control" name="ing" id="ing" placeholder="Ingredients"></textarea>
             </div>
           <div class="form-group">
 			<label for="name">Method</label>
-			<input type="text" rows = "10" class="form-control" name="method" id="method" placeholder="Ingredients">
+			<textarea form ="recipeform" class="form-control" name="ing" id="ing" placeholder="Method"></textarea>
           </div>
             
 		  <button type="submit" id="submitB" class="btn btn-primary">Add to Breakfast</button>
-		  <button type="submit" id="submitL" class="btn btn-primary">Add to Lunch</button>
+		  <!--
+          <button type="submit" id="submitL" class="btn btn-primary">Add to Lunch</button>
 		  <button type="submit" id="submitD" class="btn btn-primary">Add to Dinner</button>
 		  <button type="submit" id="submitDe" class="btn btn-primary">Add to Dessert</button>
-		<!--
+		  
+        <input type="text" class="form-control" name="ing" id="ing" placeholder="Ingredients">
+            
+
+          -->
+            
         </form>
 		<br />
         
 		<form>
 		  <div class="form-group">
-			<label for="serveroutput">Server result</label>
-			<textarea class="form-control" id="serveroutput" rows="10" placeholder="Please submit an input above."  readonly></textarea>
+			<label for="serveroutput">Recipe Added!</label>
+			<textarea class="form-control" id="serveroutput" rows="10" placeholder="Add a recipe above" readonly></textarea>
 		</form>
-        -->
 	</div>
 
     <!-- jQuery first, then Tether, then Bootstrap JS. -->
@@ -62,11 +69,12 @@
     
 	<script>
         // Breakfast submit
-		$("#submitB").click(function(e) {
+		$("#submit").click(function(e) {
 			e.preventDefault();
 			
-			data = {userinput: $("#userinput").val()}
-			$.post("/perms", data, function(resbody){
+			data = {rname: $("#rname").val()}
+            
+			$.post("/bfast", data, function(resbody){
 				$("#serveroutput").text(resbody);
 			});
 		});

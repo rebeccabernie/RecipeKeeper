@@ -15,10 +15,10 @@ def get_db():
 def root():
     return app.send_static_file('index.html')
 
-@app.route("/perms", methods=["GET", "POST"])
-def perms():
-	perms = [''.join(p) for p in it.permutations(fl.request.values["userinput"])]
-	return '\n'.join(perms)
+@app.route("/bfast", methods=["GET", "POST"])
+def bfast():
+	bfast = fl.request.values["rname"]
+	return rname
 
 if __name__ == "__main__":
     app.run()
