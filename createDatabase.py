@@ -2,7 +2,7 @@
 # https://docs.python.org/2/library/sqlite3.html
 import sqlite3
 
-DATABASE = 'recipes/recipes.db' # Sets DATABASE to recipes file in subfolder
+DATABASE = 'recipes.db' # Sets DATABASE to recipes file in subfolder
 
 def setup_db():
   # Create database if it doesn't exist
@@ -14,8 +14,8 @@ def setup_db():
   db.commit() # Save changes
 
   cur.execute("SELECT COUNT(*) FROM recipetable")
-  if cur.fetchall()[0][0][0]== 0: # If all columns are empty, insert following information
-    cur.execute('INSERT INTO recipetable VALUES("Pancakes", "Eggs, Milk, SF Flour", "Add all to bowl and mix.")')
+  if cur.fetchall() == 0: # If all columns are empty, insert following information
+    cur.execute("INSERT INTO recipetable VALUES('Pancakes', 'Eggs, Milk, SF Flour', 'Add all to bowl and mix.')")
     db.commit()
 
 if __name__ == "__main__":
