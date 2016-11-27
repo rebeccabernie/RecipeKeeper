@@ -15,12 +15,31 @@
   <body>
 	
 	<!-- https://v4-alpha.getbootstrap.com/components/navbar/ -->
-	<nav class="navbar navbar-dark bg-inverse">
-		<div class="container">
-    	<a class="navbar-brand" href="#">Recipe Keeper</a>
-  	</div>
-	</nav>
 
+    <!-- Navbar code adapted from https://getbootstrap.com/examples/dashboard/ -->
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Recipe Keeper</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">Dashboard</a></li>
+            <li><a href="#">Settings</a></li>
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Help</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+      
 	<div class="container">
 		<br />
 		<!-- Adapted from: http://v4-alpha.getbootstrap.com/components/forms/#textual-inputs -->
@@ -28,29 +47,20 @@
             
 		  <div class="form-group">
 			<label for="name">Recipe Name</label>
-			<input type="text" class="form-control" name="rname" id="rname" placeholder="Name">
+			<input type="text" class="form-control" name="rname" id="rname" placeholder="Eg. French Toast" required>
           </div>
           <div class="form-group">
 			<label for="name">Ingredients</label>
               <!--  Input tag doesn't support multiple rows, 
                     <textarea> solution found on http://stackoverflow.com/questions/13089182/more-than-1-row-in-input-type-textarea -->
-			<textarea form ="recipeform" class="form-control" name="ing" id="ing" placeholder="Ingredients"></textarea>
+			<textarea form ="recipeform" class="form-control" name="ing" id="ing" placeholder="Eg. Bread, eggs, sugar"required></textarea>
             </div>
           <div class="form-group">
 			<label for="name">Method</label>
-			<textarea form ="recipeform" class="form-control" name="ing" id="ing" placeholder="Method"></textarea>
+			<textarea form ="recipeform" class="form-control" name="method" id="method" placeholder="Eg. Whisk eggs and sugar,/n dip bread,/n fry on pan"required></textarea>
           </div>
-            
-		  <button type="submit" id="submitB" class="btn btn-primary">Add to Breakfast</button>
-		  <!--
-          <button type="submit" id="submitL" class="btn btn-primary">Add to Lunch</button>
-		  <button type="submit" id="submitD" class="btn btn-primary">Add to Dinner</button>
-		  <button type="submit" id="submitDe" class="btn btn-primary">Add to Dessert</button>
-		  
-        <input type="text" class="form-control" name="ing" id="ing" placeholder="Ingredients">
-            
-
-          -->
+		  <button type="submit" id="submit" class="btn btn-primary">Save Recipe</button>
+		 
             
         </form>
 		<br />
@@ -58,7 +68,7 @@
 		<form>
 		  <div class="form-group">
 			<label for="serveroutput">Recipe Added!</label>
-			<textarea class="form-control" id="serveroutput" rows="10" placeholder="Add a recipe above" readonly></textarea>
+			<textarea class="form-control" id="serveroutput" rows="5" placeholder="Add a recipe above" readonly></textarea>
 		</form>
 	</div>
 
@@ -68,48 +78,16 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/js/bootstrap.min.js" integrity="VjEeINv9OSwtWFLAtmc4JCtEJXXBub00gtSnszmspDLCtC0I4z4nqz7rEFbIZLLU" crossorigin="anonymous"></script>
     
 	<script>
-        // Breakfast submit
+        // Submit
 		$("#submit").click(function(e) {
 			e.preventDefault();
 			
-			data = {rname: $("#rname").val()}
+			data = {rname: $("#rname").val(), ing: $("#ing").val(), method: $("#method").val()}
             
-			$.post("/bfast", data, function(resbody){
+			$.post("/add", data, function(resbody){
 				$("#serveroutput").text(resbody);
 			});
 		});
-        
-        /*
-        // Lunch submit
-        $("#submitL").click(function(e) {
-			e.preventDefault();
-			
-			data = {userinput: $("#userinput").val()}
-			$.post("/perms", data, function(resbody){
-				$("#serveroutput").text(resbody);
-			});
-		});
-        
-        // Dinner submit
-        $("#submitD").click(function(e) {
-			e.preventDefault();
-			
-			data = {userinput: $("#userinput").val()}
-			$.post("/perms", data, function(resbody){
-				$("#serveroutput").text(resbody);
-			});
-		});
-        
-        // Dessert submit
-        $("#submitDe").click(function(e) {
-			e.preventDefault();
-			
-			data = {userinput: $("#userinput").val()}
-			$.post("/perms", data, function(resbody){
-				$("#serveroutput").text(resbody);
-			});
-		});
-        */
 	</script>
   </body>
 </html>
