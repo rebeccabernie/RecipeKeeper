@@ -28,6 +28,7 @@ def bfast():
     cur.execute("INSERT INTO btable VALUES(?, ?, ?)", (rname, ing, method))
 
     db.commit()
+    db.close() # Close database
 
     return rname
 
@@ -37,6 +38,7 @@ def savedRecipes():
     cur = db.cursor()
     
     cur.execute("SELECT rname FROM btable")
+    db.close() # Close database
     return str(cur.fetchall())
 
 if __name__ == "__main__":
