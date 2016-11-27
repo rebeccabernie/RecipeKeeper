@@ -1,7 +1,7 @@
 import flask as fl
 import sqlite3
 
-DATABASE = 'recipes/recipes.db'
+DATABASE = 'recipes.db'
 app = fl.Flask(__name__)
 
 # Load database, adapted from https://github.com/data-representation/example-sqlite
@@ -17,18 +17,18 @@ def root():
 
 @app.route("/add", methods=["GET", "POST"])
 def bfast():
-	rname = fl.request.values["rname"]
+    rname = fl.request.values["rname"]
     ing = fl.request.values["ing"]
-    methpd = fl.request.values["method"]
-	
+    method = fl.request.values["method"]
+
     db = sqlite3.connect(DATABASE) # Create connection object, represents database. Data stored in DATABASE, defined above
     cur = db.cursor() # Allows SQL commands to be performed
 
     # Formatting for /VALUES(%s), var/ found at http://stackoverflow.com/questions/902408/how-to-use-variables-in-sql-statement-in-python
-    cur.execute("INSERT INTO btable VALUES(%s, %s, %s)", rname, ing, method)
-    
+    cur.execute("INSERT INTO btable VALUES(?, ?, ?)", (rname, ing, method))
+
     db.commit()
-    
+
     return rname
 
 @app.route("/saved", methods=["GET", "POST"])
