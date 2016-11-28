@@ -14,31 +14,13 @@
   </head>
   <body>
 	
-	<!-- https://v4-alpha.getbootstrap.com/components/navbar/ -->
+	<!-- Navbar adapted from https://v4-alpha.getbootstrap.com/components/navbar/ -->
+	<nav class="navbar navbar-dark bg-inverse">
+		<div class="container">
+    	<a class="navbar-brand" href="#">Recipe Keeper</a>
+  	</div>
+	</nav>
 
-    <!-- Navbar code adapted from https://getbootstrap.com/examples/dashboard/ -->
-
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">Recipe Keeper</a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">Dashboard</a></li>
-            <li><a href="#">Settings</a></li>
-            <li><a href="#">Profile</a></li>
-            <li><a href="#">Help</a></li>
-          </ul>
-        </div>
-      </div>
-    </nav>
       
 	<div class="container">
 		<br />
@@ -59,18 +41,33 @@
 			<label for="name">Method</label>
 			<textarea form ="recipeform" class="form-control" name="method" id="method" placeholder="Eg. Whisk eggs and sugar,/n dip bread,/n fry on pan"required></textarea>
           </div>
-		  <button type="submit" id="submit" class="btn btn-primary">Save Recipe</button>
-		 
-            
+		  <button type="submit" id="submitB" class="btn btn-primary">Save to Breakfast</button>
+          <button type="submit" id="submitL" class="btn btn-primary">Save to Lunch</button>
+       
         </form>
 		<br />
         
+        <form>
+            <!-- Display previously saved recipes -->
+            <div class="form-group">
+                 <label for="serveroutputB">Your Breakfast Recipes</label>
+			     <textarea class="form-control" id="saved" rows="5" placeholder="You have no recipes..."></textarea>
+	             <br/>
+            </div>
+        </form>
+        
+        <!--
 		<form>
 		  <div class="form-group">
-			<label for="serveroutput">Recipe Added!</label>
-			<textarea class="form-control" id="serveroutput" rows="5" placeholder="Add a recipe above" readonly></textarea>
+			<label for="serveroutput">Your Breakfast Recipes</label>
+			<textarea class="form-control" id="serveroutputB" rows="5" placeholder="You have no recipes..." readonly></textarea>
 		</form>
-	</div>
+        <form>
+		  <div class="form-group">
+			<label for="serveroutput">Your Lunch Recipes</label>
+			<textarea class="form-control" id="serveroutputL" rows="5" placeholder="You have no recipes..." readonly></textarea>
+		</form>
+	</div> -->
 
     <!-- jQuery first, then Tether, then Bootstrap JS. -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js" integrity="sha384-THPy051/pYDQGanwU6poAc/hOdQxjnOEXzbT+OuUAFqNqFjL+4IGLBgCJC3ZOShY" crossorigin="anonymous"></script>
@@ -79,15 +76,32 @@
     
 	<script>
         // Submit
-		$("#submit").click(function(e) {
+		$("#submitB").click(function(e) {
+			e.preventDefault();
+			
+			data = {rname: $("#rname").toString(), ing: $("#ing").toString(), method: $("#method").toString()}
+            
+			$.post("/add", data, function(resbody){
+				$("#serveroutputB").text(resbody);
+			});
+            
+            // Import saved
+            $.post("/savedRecipes", data, function(resbody){
+                $("#saved").text(resbody);
+            });
+		});
+        
+        /*
+          // Submit
+		$("#submitB").click(function(e) {
 			e.preventDefault();
 			
 			data = {rname: $("#rname").val(), ing: $("#ing").val(), method: $("#method").val()}
             
 			$.post("/add", data, function(resbody){
-				$("#serveroutput").text(resbody);
+				$("#serveroutputL").text(resbody);
 			});
-		});
+		}); */
 	</script>
   </body>
 </html>
