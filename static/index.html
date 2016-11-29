@@ -4,30 +4,29 @@
 
 <html lang="en">
   <head>
-    <!-- Required meta tags always come first -->
+    <!-- Meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
 
+    <link rel="stylesheet" type="text/css" href="stylesheet.css">
+      
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/css/bootstrap.min.css" integrity="2hfp1SzUoho7/TsGGGDaFdsuuDL0LX2hnUp6VkX3CUQ2K4K+xjboZdsXyp4oUHZj" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/css/bootstrap.min.css" crossorigin="anonymous">
   </head>
   <body>
 	
 	<!-- Navbar adapted from https://v4-alpha.getbootstrap.com/components/navbar/ -->
-	<nav class="navbar navbar-dark bg-inverse">
-		<div class="container">
-    	<a class="navbar-brand" href="#">Recipe Keeper</a>
-  	</div>
-	</nav>
+    <nav class="navbar navbar-dark bg-inverse">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/">Recipe Keeper</a>
+        </div>
+    </nav>
 
-      
-	<div class="container">
-		<br />
+    <div class="container" id="addRecContainer">
+        <br />
 		<!-- Adapted from: http://v4-alpha.getbootstrap.com/components/forms/#textual-inputs -->
-		
-        <form id="recipeform" action="/add" method="POST">
-            
+		<form id="recipeform">
 		  <div class="form-group">
 			<label for="name">Recipe Name</label>
 			<input type="text" class="form-control" name="rname" id="rname" placeholder="Eg. French Toast" required>
@@ -37,45 +36,47 @@
               <!--  Input tag doesn't support multiple rows, 
                     <textarea> solution found on http://stackoverflow.com/questions/13089182/more-than-1-row-in-input-type-textarea -->
 			<textarea form ="recipeform" class="form-control" name="ing" id="ing" placeholder="Eg. Bread, eggs, sugar"required></textarea>
-            </div>
+          </div>
           <div class="form-group">
 			<label for="name">Method</label>
 			<textarea form ="recipeform" class="form-control" name="method" id="method" placeholder="Eg. Whisk eggs and sugar,/n dip bread,/n fry on pan"required></textarea>
           </div>
-		  <button type="submit" id="submitB" class="btn btn-primary">Save to Breakfast</button>
-            
+		  
+          <button type="submit" id="submit" class="btn btn-primary btn-block" float="centre">Save Recipe</button>
+		 
         </form>
 		<br />
-        
-        <!-- Display previously saved recipes
-        <form>
-            <div class="form-group">
-                 <label for="serveroutputB">Your Breakfast Recipes</label>
-			     <textarea class="form-control" id="saved" rows="5" placeholder="You have no recipes..."></textarea>
-	             <br/>
-            </div> 
-        </form>-->
-        
-        <!-- <button type="submit" id="submitL" class="btn btn-primary">Save to Lunch</button>
-     
+    </div> <!-- end form container -->
+      
+    <div class="container" id="displayRec" >
 		<form>
 		  <div class="form-group">
-			<label for="serveroutput">Your Breakfast Recipes</label>
-			<textarea class="form-control" id="serveroutputB" rows="5" placeholder="You have no recipes..." readonly></textarea>
+            <br/>
+			<label for="serveroutput">Your Recipes</label>
+            <small id="recipeHelp" class="form-text text-muted">Click on a name to view a recipe in full.</small>
+			<textarea class="form-control" id="serveroutput" rows="10" placeholder="You have no recipes..." readonly></textarea>
+		  </div>
 		</form>
-        <form>
+    </div> <!-- end #displayRec -->
+      
+    <!-- User clicks on name, full recipe comes up here (hopefully)
+     <div class="container" id="recFull" >
+		<form>
 		  <div class="form-group">
-			<label for="serveroutput">Your Lunch Recipes</label>
-			<textarea class="form-control" id="serveroutputL" rows="5" placeholder="You have no recipes..." readonly></textarea>
+            <br/>
+			<label for="serveroutput">Your Recipes</label>
+            <small id="recipeHelp" class="form-text text-muted">Click on a name to view a recipe in full.</small>
+			<textarea class="form-control" id="serveroutput" rows="10" placeholder="Select a recipe..." readonly></textarea>
+		  </div>
 		</form>
-	</div> -->
+    </div> <!-- end #displayRec 
+	 -->
 
-    <!-- jQuery first, then Tether, then Bootstrap JS. 
+    <!-- jQuery first, then Tether, then Bootstrap JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js" integrity="sha384-THPy051/pYDQGanwU6poAc/hOdQxjnOEXzbT+OuUAFqNqFjL+4IGLBgCJC3ZOShY" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js" integrity="sha384-Plbmg8JY28KFelvJVai01l8WyZzrYWG825m+cZ0eDDS1f7d/js6ikvy1+X+guPIB" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/js/bootstrap.min.js" integrity="VjEeINv9OSwtWFLAtmc4JCtEJXXBub00gtSnszmspDLCtC0I4z4nqz7rEFbIZLLU" crossorigin="anonymous"></script>
-    -->
-    <!--    
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/js/bootstrap.min.js" crossorigin="anonymous"></script>
+      
 	<script>
         // Submit
 		$("#submitB").click(function(e) {
@@ -105,6 +106,5 @@
 			});
 		}); */
 	</script>
--->
   </body>
 </html>
