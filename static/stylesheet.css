@@ -14,3 +14,8 @@ div#recFull {
     width:35%;
     float: left;
 }
+
+/* 
+Float 3 Divs side by side using float: left -
+http://stackoverflow.com/questions/2156712/how-to-float-3-divs-side-by-side-using-css
+*/

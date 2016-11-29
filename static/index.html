@@ -8,11 +8,32 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-
-    <link rel="stylesheet" type="text/css" href="stylesheet.css">
       
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/css/bootstrap.min.css" crossorigin="anonymous">
+    <style>
+        div#addRecContainer {
+            width: 25%;
+            float: left;
+        }
+        div#displayRec {
+            border-style: solid;
+            margin-bottom: 0%;
+            margin-top: 0%;
+            width: 40%;
+            height: 100%;
+            float: left;
+        }
+        div#recFull {
+            width:35%;
+            float: left;
+        }
+        /* 
+        Float 3 Divs side by side using float: left -
+        http://stackoverflow.com/questions/2156712/how-to-float-3-divs-side-by-side-using-css
+        */
+    </style>
+      
   </head>
   <body>
 	
@@ -26,11 +47,12 @@
     <div class="container" id="addRecContainer">
         <br />
 		<!-- Adapted from: http://v4-alpha.getbootstrap.com/components/forms/#textual-inputs -->
-		<form id="recipeform">
-		  <div class="form-group">
+		<form id="recipeform" action="/savedRecipes" method="POST">
+		  <div class="form-group has-error">
 			<label for="name">Recipe Name</label>
 			<input type="text" class="form-control" name="rname" id="rname" placeholder="Eg. French Toast" required>
           </div>
+        
           <div class="form-group">
 			<label for="name">Ingredients</label>
               <!--  Input tag doesn't support multiple rows, 
@@ -42,14 +64,13 @@
 			<textarea form ="recipeform" class="form-control" name="method" id="method" placeholder="Eg. Whisk eggs and sugar,/n dip bread,/n fry on pan"required></textarea>
           </div>
 		  
-          <button type="submit" id="submit" class="btn btn-primary btn-block" float="centre">Save Recipe</button>
+          <button type="submit" id="submit" class="btn btn-primary btn-block">Save Recipe</button>
 		 
         </form>
-		<br />
     </div> <!-- end form container -->
       
     <div class="container" id="displayRec" >
-		<form>
+		<form action="/savedRecipes" method="POST">
 		  <div class="form-group">
             <br/>
 			<label for="serveroutput">Your Recipes</label>
@@ -79,22 +100,21 @@
       
 	<script>
         // Submit
-		$("#submitB").click(function(e) {
+		   $("#submit").click(function(e) {
 			e.preventDefault();
 			
-			data = {rname: $("#rname").toString(), ing: $("#ing").toString(), method: $("#method").toString()}
-            
+			data = {rname: $("#rname").val(), ing: $("#ing").val(), method: $("#method").val()}
 			$.post("/add", data, function(resbody){
-				$("#serveroutputB").text(resbody);
+				//$("#serveroutput").text(resbody);
 			});
-            
-            // Import saved
-            $.post("/savedRecipes", data, function(resbody){
-                $("#saved").text(resbody);
-            });
+              
+            $.post("/savedRecipes", function( data ) {
+                $( "#serveroutput" ).html( data );
+			});
 		});
         
         /*
+        , ing: $("#ing").val(), method: $("#method").val()
           // Submit
 		$("#submitB").click(function(e) {
 			e.preventDefault();
