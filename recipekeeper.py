@@ -22,14 +22,14 @@ def close_connection(exception):
 """
 @app.route("/")
 def root():
+    cur = loadDB().cursor()
     return app.send_static_file('index.html') # Load index.html file
-    cur.execute("SELECT rname FROM btable")
-    return str(cur.fetchall())
     
 @app.route("/add", methods=["GET", "POST"])
 def addRecipe():
-    #cur.execute("INSERT INTO ltable (rname, ing, method) VALUES('Cheese Sandwich', 'Bread, Butter, Cheese', 'Butter bread, add cheese')")
-    cur.execute("INSERT INTO btable(rname) VALUES(?)",(fl.request.form['rname'],))
+    cur.execute("INSERT INTO btable(rname, ing, method) VALUES(?, ?, ?)",(fl.request.form['rname'],fl.request.form['ing'],fl.request.form['method'],))
+    #cur.execute("INSERT INTO btable(ing) VALUES(?)",(fl.request.form['ing'],))
+    #cur.execute("INSERT INTO btable(method) VALUES(?)",(fl.request.form['method'],))
     connDB.commit()
     return str(cur.fetchall())
     
@@ -37,6 +37,12 @@ def addRecipe():
 def savedRec():
     
     cur.execute("SELECT rname FROM btable")
+    return str(cur.fetchall())
+
+@app.route("/fullRecipe", methods=["GET", "POST"])
+def fullRec():
+    
+    cur.execute("SELECT * FROM btable")
     return str(cur.fetchall())
 
 
