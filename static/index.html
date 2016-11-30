@@ -13,15 +13,19 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/css/bootstrap.min.css" crossorigin="anonymous">
     <style>
         div#addRecContainer {
+            background-color: #f2f2f2;
             width: 30%;
+            height: 100vh;
             float: left;
         }
         div#displayRec {
-            background-color: #f2f2f2;
+            height: 100vh;
             width: 20%;
             float: left;
         }
-        div#recFull {
+        div#fullRec {
+            background-color: #f2f2f2;
+            height: 100vh;
             width:50%;
             float: left;
         }
@@ -62,7 +66,8 @@
           </div>
 		  
           <button type="submit" id="submit" class="btn btn-primary btn-block">Save Recipe</button>
-		 
+		  <button type="reset" id="reset" class="btn btn-primary btn-block">Reset Form</button>
+            
         </form>
     </div> <!-- end form container -->
       
@@ -79,14 +84,17 @@
     </div> <!-- end #displayRec -->
       
     <!-- User clicks on name, full recipe comes up here (hopefully) -->
-     <div class="container" id="recFull" >
-		<form>
+     <div class="container" id = fullRec>
+		<form action="/fullRecipe" method="POST">
 		  <div class="form-group">
             <br/>
-			<label for="serveroutput">Your Recipes</label>
-            <small id="recipeHelp" class="form-text text-muted">Click on a name to view a recipe in full.</small>
-			<textarea class="form-control" id="serveroutput" rows="10" placeholder="Select a recipe..." readonly></textarea>
-		  </div>
+			<label for="serveroutput">Full Recipe</label>
+              
+              <h1 id = "fName"></h1>
+              <p id = "fIng"></p>
+              <p id = "fMeth"></p>
+              
+          </div>
 		</form>
     </div> <!-- end #displayRec -->
 	 
@@ -97,18 +105,18 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/js/bootstrap.min.js" crossorigin="anonymous"></script>
       
 	<script>
-        // Submit
         $("#submit").click(function(e) {
-        e.preventDefault();
-
-        data = {rname: $("#rname").val(), ing: $("#ing").val(), method: $("#method").val()}
-        recname = document.getElementById("rname").value; // Add variable value to name of button - http://stackoverflow.com/questions/3259152/variable-as-button-value-in-javascript
-
-            $.post("/add", data, function(resbody){
+			e.preventDefault();
+			
+            data = {rname: $("#rname").val(), ing: $("#ing").val(), method: $("#method").val()}
+            recname = document.getElementById("rname").value; // Add variable value to name of button - http://stackoverflow.com/questions/3259152/variable-as-button-value-in-javascript
+            
+            $.post("/add", data, function(resp){
+				//$("#serveroutput").text(resbody);
+			});
+              
+            $.post("/savedRecipes", function( resp ) {
                 
-            });
-
-            $.post("/savedRecipes", function( data ) {
                 // Code for adding buttons adapted from http://www.w3schools.com/jsref/met_document_createelement.asp
                 // Adding Bootstrap CSS to buttons - http://stackoverflow.com/questions/29023888/add-bootstrap-button-by-javascript
                 var btn = document.createElement("button");
@@ -124,19 +132,33 @@
                 e.preventDefault();
 
                     data = {rname: $("#rname").val(), ing: $("#ing").val(), method: $("#method").val()}
-                    console.log(data);
                     recname = document.getElementById("rname").value; // Add variable value to name of button - http://stackoverflow.com/questions/3259152/variable-as-button-value-in-javascript
+                    recing = document.getElementById("ing").value; // Add variable value to name of button - http://stackoverflow.com/questions/3259152/variable-as-button-value-in-javascript
+                    recmeth = document.getElementById("method").value; // Add variable value to name of button - http://stackoverflow.com/questions/3259152/variable-as-button-value-in-javascript
 
-                    $.post("/fullRecipe", data, function( resp ) {
-                        $( "#serveroutput" ).html( resp );
+                    $.post("/fullRecipe", function(resp) {
+                        //var fullR = document.createElement("textarea");
+                            //fullR.type = "text";
+                            //fullR.name = "fullR";
+                            //fullR.id="fullR"
+                            //fullR.className="btn btn-danger btn-block";
+                        var fn = document.createTextNode(recname);
+                        var fi = document.createTextNode(recing);
+                        var fm = document.createTextNode(recmeth);
+
+                        //fullR.appendChild(tn)
+                        //fullR.appendChild(ti)
+                        //fullR.appendChild(tm);
+                        document.getElementById("fName").appendChild(fn);
+                        document.getElementById("fIng").appendChild(fi);
+                        document.getElementById("fMeth").appendChild(fm);
+
                     });
+                    
                 }); //end Expand button
-            
-            }); // end post to saved recipes
-        
-        }); // end submit form
-
-        
+                
+			}); // end saved
+		});
         
 	</script>
   </body>
