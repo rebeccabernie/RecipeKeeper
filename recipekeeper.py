@@ -23,14 +23,12 @@ def close_connection(exception):
 @app.route("/")
 def root():
     cur = loadDB().cursor()
-    cur.execute("SELECT * FROM btable")
+    #cur.execute("SELECT * FROM btable")
     return app.send_static_file('index.html') # Load index.html file
     
 @app.route("/add", methods=["GET", "POST"])
 def addRecipe():
     cur.execute("INSERT INTO btable(rname, ing, method) VALUES(?, ?, ?)",(fl.request.form['rname'],fl.request.form['ing'],fl.request.form['method'],))
-    #cur.execute("INSERT INTO btable(ing) VALUES(?)",(fl.request.form['ing'],))
-    #cur.execute("INSERT INTO btable(method) VALUES(?)",(fl.request.form['method'],))
     connDB.commit()
     return str(cur.fetchall())
     
@@ -41,14 +39,22 @@ def savedRec():
 
 @app.route("/fullRecipe", methods=["GET", "POST"])
 def fullRec():
-    print(fl.request.values["rname"])
-    #rname = (fl.request.form['ing'])
-    #rname = "%" + rname + "%";
-    #query = 'select * from btable where rname like "'+ name + '"'
-    #cur = recipes.rawQuery(query, null)
-    #cur.execute("SELECT * FROM btable WHERE rname LIKE %(?)%", (fl.request.form['rname'],))
-    #return str(cur.fetchall())
-    return fl.request.values["rname"]
+    #print(fl.request.values["rname"])
+    #rname = (fl.request.form['#rname'])
+    cur.execute("SELECT * FROM btable")
+    return str(cur.fetchall())
+    #return fl.request.values["rname"]
+
+#WHERE rname LIKE ?", ('#rname')
+    
+#print(fl.request.values["rname"])
+#return fl.request.values["rname"]
+
+#rname = "%" + rname + "%";
+#query = 'select * from btable where rname like "'+ name + '"'
+#cur = recipes.rawQuery(query, null)
+#cur.execute("SELECT * FROM btable WHERE rname LIKE %(?)%", (fl.request.form['#rname']))
+#return str(cur.fetchall())
 
 if __name__ == "__main__":
     app.run()
