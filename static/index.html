@@ -48,23 +48,26 @@
     <div class="container" id="addRecContainer">
         <br />
 		<!-- Adapted from: http://v4-alpha.getbootstrap.com/components/forms/#textual-inputs -->
-		<form id="recipeform" action="/savedRecipes" method="POST">
+		<form id="nameform" action="/savedRecipes" method="POST">
 		  <div class="form-group has-error">
 			<label for="name">Recipe Name</label>
 			<input type="text" class="form-control" name="rname" id="rname" placeholder="Eg. French Toast" required>
           </div>
-        
+        </form>
+        <form id="ingform" action="/savedRecipes" method="POST">
           <div class="form-group">
 			<label for="name">Ingredients</label>
               <!--  Input tag doesn't support multiple rows, 
                     <textarea> solution found on http://stackoverflow.com/questions/13089182/more-than-1-row-in-input-type-textarea -->
 			<textarea form ="recipeform" class="form-control" name="ing" id="ing" placeholder="Eg. Bread, eggs, sugar"required></textarea>
           </div>
+        </form>
+        <form id="methodform" action="/savedRecipes" method="POST">
           <div class="form-group">
 			<label for="name">Method</label>
 			<textarea form ="recipeform" class="form-control" name="method" id="method" placeholder="Eg. Whisk eggs and sugar,/n dip bread,/n fry on pan"required></textarea>
           </div>
-		  
+        </form>
           <button type="submit" id="submit" class="btn btn-primary btn-block">Save Recipe</button>
 		  <button type="reset" id="reset" class="btn btn-primary btn-block">Reset Form</button>
             
@@ -130,12 +133,12 @@
             
                 $("#expand").click(function(e) {
                 e.preventDefault();
-
+                    
                     data = {rname: $("#rname").val(), ing: $("#ing").val(), method: $("#method").val()}
                     recname = document.getElementById("rname").value; // Add variable value to name of button - http://stackoverflow.com/questions/3259152/variable-as-button-value-in-javascript
                     recing = document.getElementById("ing").value; // Add variable value to name of button - http://stackoverflow.com/questions/3259152/variable-as-button-value-in-javascript
                     recmeth = document.getElementById("method").value; // Add variable value to name of button - http://stackoverflow.com/questions/3259152/variable-as-button-value-in-javascript
-
+                    
                     $.post("/fullRecipe", function(resp) {
                         //var fullR = document.createElement("textarea");
                             //fullR.type = "text";
@@ -145,14 +148,12 @@
                         var fn = document.createTextNode(recname);
                         var fi = document.createTextNode(recing);
                         var fm = document.createTextNode(recmeth);
-
                         //fullR.appendChild(tn)
                         //fullR.appendChild(ti)
                         //fullR.appendChild(tm);
                         document.getElementById("fName").appendChild(fn);
                         document.getElementById("fIng").appendChild(fi);
                         document.getElementById("fMeth").appendChild(fm);
-
                     });
                     
                 }); //end Expand button

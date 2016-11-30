@@ -28,20 +28,23 @@ def root():
     
 @app.route("/add", methods=["GET", "POST"])
 def addRecipe():
-    cur.execute("INSERT INTO btable(rname, ing, method) VALUES(?, ?, ?)",(fl.request.form['rname'],fl.request.form['ing'],fl.request.form['method'],))
+    cur.execute("INSERT INTO recipeTable(rname, ing, method) VALUES(?, ?, ?)",(fl.request.form['rname'],fl.request.form['ing'],fl.request.form['method'],))
     connDB.commit()
     return str(cur.fetchall())
     
 @app.route("/savedRecipes", methods=["GET", "POST"])
 def savedRec():
-    cur.execute("SELECT rname FROM btable")
+    cur.execute("SELECT rname FROM recipeTable")
     return str(cur.fetchall())
 
 @app.route("/fullRecipe", methods=["GET", "POST"])
 def fullRec():
+    name = request.form['nameform']
+    ing = request.form['ingform']
+    method = request.form['methodform']
     #print(fl.request.values["rname"])
     #rname = (fl.request.form['#rname'])
-    cur.execute("SELECT * FROM btable")
+    cur.execute("SELECT * FROM recipeTable where rname = (?)", (name))
     return str(cur.fetchall())
     #return fl.request.values["rname"]
 
