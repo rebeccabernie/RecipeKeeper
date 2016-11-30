@@ -23,6 +23,7 @@ def close_connection(exception):
 @app.route("/")
 def root():
     cur = loadDB().cursor()
+    cur.execute("SELECT * FROM btable")
     return app.send_static_file('index.html') # Load index.html file
     
 @app.route("/add", methods=["GET", "POST"])
@@ -35,16 +36,19 @@ def addRecipe():
     
 @app.route("/savedRecipes", methods=["GET", "POST"])
 def savedRec():
-    
     cur.execute("SELECT rname FROM btable")
     return str(cur.fetchall())
 
 @app.route("/fullRecipe", methods=["GET", "POST"])
 def fullRec():
-    
-    cur.execute("SELECT * FROM btable")
-    return str(cur.fetchall())
-
+    print(fl.request.values["rname"])
+    #rname = (fl.request.form['ing'])
+    #rname = "%" + rname + "%";
+    #query = 'select * from btable where rname like "'+ name + '"'
+    #cur = recipes.rawQuery(query, null)
+    #cur.execute("SELECT * FROM btable WHERE rname LIKE %(?)%", (fl.request.form['rname'],))
+    #return str(cur.fetchall())
+    return fl.request.values["rname"]
 
 if __name__ == "__main__":
     app.run()

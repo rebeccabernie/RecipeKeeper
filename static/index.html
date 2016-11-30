@@ -98,33 +98,45 @@
       
 	<script>
         // Submit
-		   $("#submit").click(function(e) {
-			e.preventDefault();
-			
-			data = {rname: $("#rname").val(), ing: $("#ing").val(), method: $("#method").val()}
-            recname = document.getElementById("rname").value; // Add variable value to name of button - http://stackoverflow.com/questions/3259152/variable-as-button-value-in-javascript
-               
-			$.post("/add", data, function(resbody){
-				$("#serveroutput").text(resbody);
-			});
-              
+        $("#submit").click(function(e) {
+        e.preventDefault();
+
+        data = {rname: $("#rname").val(), ing: $("#ing").val(), method: $("#method").val()}
+        recname = document.getElementById("rname").value; // Add variable value to name of button - http://stackoverflow.com/questions/3259152/variable-as-button-value-in-javascript
+
+            $.post("/add", data, function(resbody){
+                
+            });
+
             $.post("/savedRecipes", function( data ) {
-                //
                 // Code for adding buttons adapted from http://www.w3schools.com/jsref/met_document_createelement.asp
+                // Adding Bootstrap CSS to buttons - http://stackoverflow.com/questions/29023888/add-bootstrap-button-by-javascript
                 var btn = document.createElement("button");
-                    btn.type = "button";
-                    btn.name = "add";
-                    //btn.value= recname;
+                    btn.type = "submit";
+                    btn.name = "expand";
+                    btn.id="expand"
                     btn.className="btn btn-danger btn-block";
                 var t = document.createTextNode(recname);
                 btn.appendChild(t);
                 document.getElementById("recbuttons").appendChild(btn);
-			});
-               
-            $.post("/fullRecipe", function( data ) {
-                $( "#serveroutput" ).html( data );
-			});
-		});
+            
+                $("#expand").click(function(e) {
+                e.preventDefault();
+
+                    data = {rname: $("#rname").val(), ing: $("#ing").val(), method: $("#method").val()}
+                    console.log(data);
+                    recname = document.getElementById("rname").value; // Add variable value to name of button - http://stackoverflow.com/questions/3259152/variable-as-button-value-in-javascript
+
+                    $.post("/fullRecipe", data, function( resp ) {
+                        $( "#serveroutput" ).html( resp );
+                    });
+                }); //end Expand button
+            
+            }); // end post to saved recipes
+        
+        }); // end submit form
+
+        
         
 	</script>
   </body>
