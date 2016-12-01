@@ -5,9 +5,10 @@ This is a project for 3rd Year module Data Representation and Querying.
 ## Project Background 
 This is a Single Page Web App that allows the user to save recipe details to a database. 
 My two initial ideas were 
-*A Scrabble scoring system 
-and 
-* A recipe database
+
+1. A Scrabble Scoring system
+2. A Recipe database
+
 Initially I decided on the Scrabble option but after a few hours of coding it had proved to be more of a challenge than I had antipcated. After some thought and another read of the project instructions, I decided that a recipe database would actually be more suitable and possibly easier to complete in the timeframe. 
 As an avid baker, this option was also more relevant to me personally. I find one of my biggest problems is writing recipes on bits of paper and subsequently losing the bits - this is a simple app that would solve this problem.
 
