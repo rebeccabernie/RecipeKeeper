@@ -13,13 +13,13 @@ def loadDB():
     if db is None:
         db = fl.g._database = sqlite3.connect('recipes.db')
     return db
-"""
+
 @app.teardown_appcontext
 def close_connection(exception):
     db = getattr(fl.g, '_database', None)
     if db is not None:
         db.close()
-"""
+
 @app.route("/")
 def root():
     cur = loadDB().cursor()
