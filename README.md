@@ -49,10 +49,17 @@ I used [DB Browser for SQLite](http://sqlitebrowser.org/) to view the contents o
 
 Repeat as needed!
 
-## Architecture
+## Architecture / Languages
 
 This web application runs in Python 3 using the Flask framework and SQLite3 as a database.
 Python3 and Flask were required as part of this assignment. I had originally chosen to work with [CouchDB](http://couchdb.apache.org/) but I found the online resources weren't as helpful as SQLite online resources. SQLite appeared to be easier to set up, both for developer and application user, so I made the decision to switch before going any further with the project. I'm also well-versed in basic SQL commands, which helped a lot.
+
+Libraries Used:
+
+1. jQuery
+2. Tether
+3. BootStrap
+
 
 ## Learning Curve
 
