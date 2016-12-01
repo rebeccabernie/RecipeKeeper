@@ -45,9 +45,10 @@ I used [DB Browser for SQLite](http://sqlitebrowser.org/) to view the contents o
 ## Using the Application
 1. Enter your Recipe details in the left column. If you've decided for some reason you don't want to save this recipe, just click the "Reset Form" button and enter a different recipe.
 2. When you're happy with the details, click "Save Recipe". This will save your recipe details to the _recipes.db_ file in the application's folder.
-3. A button with the name of your recipe will then appear in the middle column on the screen, click this to view the full details of your recipe.
-
+3. Your recipe will appear back on the screen and the name of your recipe will be added to a panel on the right of the screen.
 Repeat as needed!
+
+_Note: if you are having trouble viewing the contents of the database in the app, you can still add to the database using the app and then view the database using [DB Browser for SQLite](http://sqlitebrowser.org/)_
 
 ## Architecture / Languages
 
